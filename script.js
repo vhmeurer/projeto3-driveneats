@@ -1,4 +1,4 @@
-let lunch,beverage,dessert;
+let chosenLunch,chosenBeverage,chosenDessert;
 
 function selectLunch(lunchOption) {
     const lunch = document.querySelector(".lunch .selected");
@@ -9,7 +9,9 @@ function selectLunch(lunchOption) {
     }
     lunchOption.classList.add("selected");
     lunchOption.children[4].classList.remove("hidden");
-    
+    chosenLunch = lunchOption.children[1].innerHTML;
+    console.log(chosenLunch);
+    checkout();
 }
 
 function selectBeverage(beverageOption) {
@@ -21,7 +23,9 @@ function selectBeverage(beverageOption) {
     }
     beverageOption.classList.add("selected");
     beverageOption.children[4].classList.remove("hidden");
-    
+    chosenBeverage = beverageOption.children[1].innerHTML;
+    console.log(chosenBeverage);
+    checkout();
 }
 
 function selectDessert(dessertOption) {
@@ -33,5 +37,15 @@ function selectDessert(dessertOption) {
     }
     dessertOption.classList.add("selected");
     dessertOption.children[4].classList.remove("hidden");
-    
+    chosenDessert = dessertOption.children[1].innerHTML;
+    console.log(chosenDessert);
+    checkout();
+}
+
+function checkout (){
+    if (chosenLunch && chosenBeverage && chosenDessert) {
+        const button = document.querySelector("button");
+        button.innerHTML = "Fechar Pedido";
+        button.style.backgroundColor = "#32B72F";
+    }
 }
