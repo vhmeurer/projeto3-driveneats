@@ -1,4 +1,4 @@
-let chosenLunch,chosenBeverage,chosenDessert;
+let chosenLunch,chosenBeverage,chosenDessert,lunchPrice,beveragePrice,dessertPrice;
 
 function selectLunch(lunchOption) {
     const lunch = document.querySelector(".lunch .selected");
@@ -10,7 +10,7 @@ function selectLunch(lunchOption) {
     lunchOption.classList.add("selected");
     lunchOption.children[4].classList.remove("hidden");
     chosenLunch = lunchOption.children[1].innerHTML;
-    console.log(chosenLunch);
+    lunchPrice = lunchOption.children[3].innerHTML;
     checkout();
 }
 
@@ -24,7 +24,7 @@ function selectBeverage(beverageOption) {
     beverageOption.classList.add("selected");
     beverageOption.children[4].classList.remove("hidden");
     chosenBeverage = beverageOption.children[1].innerHTML;
-    console.log(chosenBeverage);
+    beveragePrice = beverageOption.children[3].innerHTML;
     checkout();
 }
 
@@ -38,7 +38,7 @@ function selectDessert(dessertOption) {
     dessertOption.classList.add("selected");
     dessertOption.children[4].classList.remove("hidden");
     chosenDessert = dessertOption.children[1].innerHTML;
-    console.log(chosenDessert);
+    dessertPrice = dessertOption.children[3].innerHTML;
     checkout();
 }
 
@@ -47,5 +47,21 @@ function checkout (){
         const button = document.querySelector("button");
         button.innerHTML = "Fechar Pedido";
         button.style.backgroundColor = "#32B72F";
+        button.removeAttribute("disabled");
     }
+}
+
+function orderCheckout() {
+    let price = parseFloat (lunchPrice.replace("R$ ","").replace(",",".")) + parseFloat (beveragePrice.replace("R$ ","").replace(",",".")) + parseFloat (dessertPrice.replace("R$ ","").replace(",","."));
+    price = price.toFixed(2);
+
+    let orderMessage = `Olá, gostaria de fazer o pedido:
+    - Prato: ${chosenLunch}
+    - Bebida: ${chosenBeverage}
+    - Sobremesa: ${chosenDessert}
+    Total: R$ ${price}`;
+   
+    let encodedMessage = encodeURIComponent(orderMessage);
+    let whatsappMessage = `https://wa.me/5532991325938?text=${encodedMessage}`;
+    window.open(whatsappMessage, "_blank");
 }
